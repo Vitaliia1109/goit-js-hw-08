@@ -91,36 +91,36 @@ gallery.innerHTML = markup
 
 gallery.addEventListener("click", (event) => {
     event.preventDefault()
-    if (event.target === event.currentTarget) {
-        return
+    if (event.target.nodeName !== 'IMG') {
+        return;
     }
-      const sourceClicked = event.target.dataset.source
-    
+    const sourceClicked = event.target.dataset.source;
 
     const {
         preview,
         original,
         description   
-    } = images.find((image) => image.original == sourceClicked)
+    } = images.find((image) => image.original == sourceClicked);
 
     currentModal = basicLightbox.create(
-             `<div class="modal">
-                <img
+             `  <img
                 src="${sourceClicked}" 
                 alt="${description}" />
-            </div>`
+            `
     )
     currentModal.show()
-     
-})
 
-document.addEventListener('keyup', ({ code }) => {
+    document.addEventListener('keyup', ({ code }) => {
     console.log (code)
     if (code !== 'Escape') {
     return
     
     }
     currentModal.close()
+     
+})
+
+
 })
 
 
